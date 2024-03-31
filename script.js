@@ -2,11 +2,26 @@
 const submitForm = document.querySelector("#submit-form");
 const submitBtn = document.querySelector("#submit-button");
 const content = document.querySelector("#content");
+const body = document.querySelector("body");
 
 submitBtn.addEventListener("click", function () {
 	userInput = submitForm.value;
 	getWeather(userInput);
+	weatherBackgroundStyle();
 });
+
+// Change background color depending on temp
+const weatherBackgroundStyle = async () => {
+	const weatherData = await getWeather(userInput);
+	const temp = parseInt(extractWeatherData(weatherData).temperature_celcius);
+	if (temp < 10) {
+		body.style.backgroundColor = "lightblue";
+	} else if (temp > 30) {
+		body.style.backgroundColor = "orange";
+	} else {
+		body.style.backgroundColor = "green";
+	}
+};
 
 //Take location and return weather data
 async function getWeather(location) {
