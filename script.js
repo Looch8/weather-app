@@ -1,4 +1,12 @@
 // API key - 151ddc79dcaa4472ae173810243103
+const submitForm = document.querySelector("#submit-form");
+const submitBtn = document.querySelector("#submit-button");
+const content = document.querySelector("#content");
+
+submitBtn.addEventListener("click", function () {
+	userInput = submitForm.value;
+	getWeather(userInput);
+});
 
 //Take location and return weather data
 async function getWeather(location) {
@@ -6,10 +14,15 @@ async function getWeather(location) {
 		`https://api.weatherapi.com/v1/current.json?key=151ddc79dcaa4472ae173810243103&q=${location}`,
 		{ mode: "cors" }
 	);
+
 	weatherData = await response.json();
 
 	// call extractWeatherData to display specific data.
 	const extractedData = extractWeatherData(weatherData);
+
+	// convert object to array in order to display to DOM
+	const displayWeather = Object.values(extractedData);
+	content.textContent = displayWeather;
 
 	console.log(weatherData);
 	console.log(extractedData);
@@ -27,7 +40,3 @@ function extractWeatherData(weatherData) {
 	};
 	return weatherObj;
 }
-getWeather("london");
-getWeather("adelaide");
-
-// Set up a form that will let users input their location and will fetch the weather info (still just console.log() it).
