@@ -48,10 +48,7 @@ async function getWeather(location) {
 // Extract data from json data
 function extractWeatherData(weatherData) {
 	const weatherObj = {
-		city: weatherData.location.name,
-		country: weatherData.location.country,
-		temperature_celcius: `${weatherData.current.temp_c} celcius`,
-		temperature_fahrenheit: `${weatherData.current.temp_f} fahrenheit`,
+		description: `The weather for ${weatherData.location.name}, ${weatherData.location.country} is ${weatherData.current.temp_c} degrees celcius, or ${weatherData.current.temp_f} degrees fahrenheit.`,
 	};
 	return weatherObj;
 }
